@@ -181,6 +181,7 @@ to understand and they prevented evolution of the encoding and decoding code
 `true`, `false` and `null`      | `true`, `false` and `null`
 `array`                         | `[]` and `[JSON]`
 `object`                        | `#{}`, `[{}]` and `[{binary() OR atom() OR integer(), JSON}]`
+see below                       | `datetime()`
 
 *   numbers
 
@@ -249,6 +250,13 @@ to understand and they prevented evolution of the encoding and decoding code
     keys are tolerated in json text decoded to erlang terms but are not allowed
     in erlang terms encoded to json
 
+*   datetime
+
+    erlang datetime tuples (`{{Year, Month, Day}, {Hour, Min, Sec}}`) as returned
+    from `erlang:localtime/0` are automatically encoded as [iso8601][iso8601]
+    strings. no conversion is attempted of json [iso8601][iso8601] strings in
+    decoded json
+
 
 ### incomplete input ###
 
@@ -293,6 +301,7 @@ json_term() = [json_term()]
     | float()
     | binary()
     | atom()
+		| datetime()
 ```
 
 the erlang representation of json. binaries should be `utf8` encoded, or close 
@@ -678,3 +687,4 @@ jsx wouldn't be what it is without the contributions of [paul davis](https://git
 [rfc4627]: http://tools.ietf.org/html/rfc4627
 [travis]: https://travis-ci.org/
 [jsxn]: https://github.com/talentdeficit/jsxn
+[iso8601]: http://www.iso.org/iso/iso8601
